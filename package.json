@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "ui5-cc-spreadsheetimporter": "^0.25.3"
+  }
+}

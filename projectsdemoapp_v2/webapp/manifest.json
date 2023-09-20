@@ -1,0 +1,192 @@
+{
+	"_version": "1.37.0",
+	"sap.app": {
+		"id": "projectsdemoappv2.projectsdemoappv2",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "0.0.1"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"resources": "resources.json",
+		"sourceTemplate": {
+			"id": "@sap/generator-fiori:lrop",
+			"version": "1.10.2",
+			"toolsId": "cbd648cb-eddb-4651-97db-d5b94a4162ea"
+		},
+		"dataSources": {
+			"mainService": {
+				"uri": "/sap/opu/odata4/sap/zui_demo_s4_project_int_o4/srvd/sap/zui_demo_s4_project_interface/0001/",
+				"type": "OData",
+				"settings": {
+					"annotations": ["annotation"],
+					"localUri": "localService/metadata.xml",
+					"odataVersion": "4.0"
+				}
+			},
+			"annotation": {
+				"type": "ODataAnnotation",
+				"uri": "annotations/annotation.xml",
+				"settings": {
+					"localUri": "annotations/annotation.xml"
+				}
+			}
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+	"sap.ui5": {
+		"flexEnabled": true,
+		"dependencies": {
+			"minUI5Version": "1.96.0",
+			"libs": {
+				"sap.m": {},
+				"sap.ui.core": {},
+				"sap.ushell": {},
+				"sap.fe.templates": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "projectsdemoappv2.projectsdemoappv2.i18n.i18n"
+				}
+			},
+			"": {
+				"dataSource": "mainService",
+				"preload": true,
+				"settings": {
+					"synchronizationMode": "None",
+					"operationMode": "Server",
+					"autoExpandSelect": true,
+					"earlyRequests": true
+				}
+			},
+			"@i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"uri": "i18n/i18n.properties"
+			}
+		},
+		"resources": {
+			"css": []
+		},
+		"routing": {
+			"routes": [
+				{
+					"pattern": ":?query:",
+					"name": "ProjectsList",
+					"target": "ProjectsList"
+				},
+				{
+					"pattern": "Projects({key}):?query:",
+					"name": "ProjectsObjectPage",
+					"target": "ProjectsObjectPage"
+				},
+				{
+					"pattern": "Projects({key})/_Objects({key2}):?query:",
+					"name": "ObjectsObjectPage",
+					"target": "ObjectsObjectPage"
+				}
+			],
+			"targets": {
+				"ProjectsList": {
+					"type": "Component",
+					"id": "ProjectsList",
+					"name": "sap.fe.templates.ListReport",
+					"options": {
+						"settings": {
+							"entitySet": "Projects",
+							"variantManagement": "Page",
+							"navigation": {
+								"Projects": {
+									"detail": {
+										"route": "ProjectsObjectPage"
+									}
+								}
+							},
+							"initialLoad": "Enabled",
+							"controlConfiguration": {
+								"@com.sap.vocabularies.UI.v1.LineItem": {
+									"actions": {
+										"ExcelUpload": {
+											"press": "projectsdemoappv2.projectsdemoappv2.ext.controller.ExcelUploadHandler.ExcelUploadFunction",
+											"visible": true,
+											"enabled": true,
+											"requiresSelection": false,
+											"text": "Excel Upload",
+											"position": {
+												"placement": "Before",
+												"anchor": "DataFieldForAction::com.sap.gateway.srvd.zui_demo_s4_project_interface.v0001.resetProject::com.sap.gateway.srvd.zui_demo_s4_project_interface.v0001.ProjectsType"
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"ProjectsObjectPage": {
+					"type": "Component",
+					"id": "ProjectsObjectPage",
+					"name": "sap.fe.templates.ObjectPage",
+					"options": {
+						"settings": {
+							"editableHeaderContent": false,
+							"entitySet": "Projects",
+							"navigation": {
+								"_Objects": {
+									"detail": {
+										"route": "ObjectsObjectPage"
+									}
+								}
+							}
+						}
+					}
+				},
+				"ObjectsObjectPage": {
+					"type": "Component",
+					"id": "ObjectsObjectPage",
+					"name": "sap.fe.templates.ObjectPage",
+					"options": {
+						"settings": {
+							"editableHeaderContent": false,
+							"entitySet": "Objects"
+						}
+					}
+				}
+			}
+		},
+		"resourceRoots": {
+			"cc.spreadsheetimporter.v0_25_3": "./thirdparty/customControl/spreadsheetImporter/v0_25_3"
+		},
+		"componentUsages": {
+			"spreadsheetImporter": {
+				"name": "cc.spreadsheetimporter.v0_25_3"
+			}
+		}
+	},
+	"sap.fiori": {
+		"registrationIds": [],
+		"archeType": "transactional"
+	}
+}
