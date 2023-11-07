@@ -1,0 +1,42 @@
+<core:FragmentDefinition xmlns:form="sap.ui.layout.form" xmlns="sap.m" xmlns:core="sap.ui.core">
+    <ResponsivePopover
+        title="{ProjectName}"
+        class="sapUiResponsivePadding--header"
+        placement="Auto"
+        core:require="{ handler: 'projectsdemoappv2/projectsdemoappv2/ext/fragment/PlanningCalendar/handler/CalendarDetailsHandler' }">
+
+        <beginButton>
+            <Button
+                text="Edit"
+                type="Emphasized"
+                press="handler.handleEditPopOver"/>
+        </beginButton>    
+        <endButton>
+            <Button
+                text="Delete"
+                type="Negative"
+                press="handler.handleDeleteProject"/>
+        </endButton>
+        <form:SimpleForm 
+            editable="false"
+            layout="ResponsiveGridLayout"
+            singleContainerFullSize="false" >
+
+            <Label
+                text="Additional Information"
+                labelFor="moreInfo"/>
+            <Text 
+                text="{ProjectName}"/>
+            <Label
+                text="From"
+                labelFor="startDate"/>                
+            <Text 
+                text="{StartDate}"/>
+            <Label 
+                text="To"
+                labelFor="endDate"/>                
+            <Text 
+                text="{ProjectedDate}"/>
+        </form:SimpleForm>
+    </ResponsivePopover>
+</core:FragmentDefinition>

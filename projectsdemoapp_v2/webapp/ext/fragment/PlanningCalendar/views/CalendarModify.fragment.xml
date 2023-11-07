@@ -1,0 +1,36 @@
+<core:FragmentDefinition
+		xmlns="sap.m"
+		xmlns:l="sap.ui.layout"
+		xmlns:f="sap.ui.layout.form"
+		xmlns:core="sap.ui.core">
+	<Dialog title="Edit Project"
+            core:require="{ handler: 'projectsdemoappv2/projectsdemoappv2/ext/fragment/PlanningCalendar/handler/CalendarModifyHandler' }">
+		<beginButton>
+			<Button text="Update" type="Emphasized" enabled="false" press="handler.handleDialogUpdate"/>
+		</beginButton>
+		<endButton>
+            <Button text="Delete" type="Reject" press="handler.handleDialogDelete"/>
+			<Button text="Cancel" press="handler.handleDialogCancel"/>
+		</endButton>
+		<l:VerticalLayout
+				class="sapUiContentPadding"
+				width="100%">
+			<f:SimpleForm
+					modelContextChange="handler.handleModelContextChange"
+					editable="true"
+					layout="ResponsiveGridLayout"
+					singleContainerFullSize="false">
+				<Label text="Project Name" labelFor="Title"/>
+				<Input value="{ProjectName}" maxLength="255" editable="false"/>
+				<Label text="From" labelFor="StartDate"/>
+				<DatePicker
+                        value="{StartDate}"
+						change="handler.handleDatePickerChange"/>
+				<Label text="To" labelFor="ProjectedDate"/>
+				<DatePicker
+                        value="{ProjectedDate}"
+						change="handler.handleDatePickerChange"/>
+			</f:SimpleForm>
+		</l:VerticalLayout>
+	</Dialog>
+</core:FragmentDefinition>
