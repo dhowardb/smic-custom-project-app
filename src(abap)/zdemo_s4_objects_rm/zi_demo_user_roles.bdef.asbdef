@@ -1,0 +1,38 @@
+managed implementation in class zbp_i_demo_user_roles unique;
+strict;
+with draft;
+
+define behavior for zi_demo_user_roles alias UserRoles
+persistent table zdt_demo_usrrole
+draft table zddt_dmo_usrrole
+lock master total etag LastChangedAt
+authorization master ( instance )
+etag master LocalLastChangedAt
+{
+  create;
+  update;
+  delete;
+
+  field ( numbering : managed, readonly ) UserNameRoleUuid;
+  field ( readonly ) LastChangedAt, LastChangedBy, CreatedAt, CreatedBy, LocalLastChangedAt;
+  field ( mandatory ) Username, Role;
+
+  draft action Edit;
+  draft action Activate;
+  draft action Resume;
+  draft action Discard;
+
+  draft determine action Prepare;
+
+  mapping for zdt_demo_usrrole
+  {
+    UserNameRoleUuid = username_role_uuid;
+    Username = username;
+    Role = role;
+    CreatedBy = created_by;
+    CreatedAt = created_at;
+    LastChangedBy = last_changed_by;
+    LastChangedAt = last_changed_at;
+    LocalLastChangedAt = local_last_changed_at;
+  }
+}

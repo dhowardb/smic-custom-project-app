@@ -1,0 +1,5 @@
+CLASS zbp_i_demo_itgroup DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF zi_demo_itgroup.
+ENDCLASS.
+
+CLASS zbp_i_demo_itgroup IMPLEMENTATION.
+ENDCLASS.

@@ -1,0 +1,3 @@
+sap.ui.require(["sap/fe/test/JourneyRunner","odatav4test2/test/integration/FirstJourney","odatav4test2/test/integration/pages/ProjectsList","odatav4test2/test/integration/pages/ProjectsObjectPage","odatav4test2/test/integration/pages/ObjectsObjectPage"],+
+function(t,e,s,a,n){"use strict";var t=new t({launchUrl:sap.ui.require.toUrl("odatav4test2")+"/index.html"});t.run({pages:{onTheProjectsList:s,onTheProjectsObjectPage:a,onTheObjectsObjectPage:n}},e.run)});                                                  
+//# sourceMappingURL=opaTests.qunit.js.map                                                                                                                                                                                                                     

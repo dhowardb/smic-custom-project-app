@@ -1,0 +1,79 @@
+@Metadata.layer: #CORE
+@UI: {
+  headerInfo: {
+                typeName: 'Open Item',
+                typeNamePlural: 'Open Items',
+                title: { type: #STANDARD, label: 'FI Open Items', value: 'DocumentNumber'} },
+  presentationVariant: [{ includeGrandTotal: true,
+                          text: 'Line Item',
+                          id: 'lineItemsAll',
+  visualizations: [{ type: #AS_LINEITEM }]
+      } ] }
+annotate view ZC_DMO_OPEN_ITEMS with
+{
+
+//  @UI.facet: [ { id:              'Items',
+//                 purpose:         #STANDARD,
+//                 type:            #IDENTIFICATION_REFERENCE,
+//                 label:           'Items',
+//                 position:        1 } ]
+  
+  @UI: { lineItem: [{ position: 10, label: 'Document Number' }],
+         identification: [{ position: 10, label: 'Document Number' }] }
+  DocumentNumber;
+
+  @UI.lineItem: [{ position: 20, label: 'Company Code' }]
+  @UI.identification: [{ position: 20, label: 'Company Code' }]
+  CompanyCode;
+
+  @UI.lineItem: [{ position: 30, label: 'Customer Number' }]
+  @UI.identification: [{ position: 30, label: 'Customer Number' }]
+  CustomerNumber;
+
+  @UI.lineItem: [{ position: 40, label: 'Fiscal Year' }]
+  @UI.identification: [{ position: 40, label: 'Fiscal Year' }]
+  FiscalYear;
+
+  @UI.hidden: true
+  ClearingDocument;
+
+  @UI.lineItem: [{ position: 50, label: 'Document Line Number' }]
+  @UI.identification: [{ hidden: true }]
+  DocumentLine;
+
+  @UI.lineItem: [{ position: 60, label: 'GL Transaction Type' }]
+  @UI.identification: [{ hidden: true }]
+  GLTransactionType;
+
+  @UI.lineItem: [{ position: 70, label: 'GL Indicator' }]
+  @UI.identification: [{ hidden: true }]
+  GLIndicator;
+
+  @UI.lineItem: [{ position: 80, label: 'Assignment Number' }]
+  @UI.identification: [{ hidden: true }]
+  AssignmentNumber;
+
+  @UI.hidden: true
+  ClearingDate;
+
+  @UI.lineItem: [{ position: 90, label: 'Document Type' }]
+  @UI.identification: [{ position: 50, label: 'Document Type' }]
+  DocumentType;
+
+  @UI.lineItem: [{ position: 100, label: 'Line Description' }]
+  @UI.identification: [{ hidden: true }]
+  Description;
+
+  @UI.lineItem: [{ position: 110, label: 'Debit/Credit' }]
+  @UI.identification: [{ hidden: true }]
+  DebitCreditIndicator;
+
+  @UI.hidden: true
+  CurrencyCode;
+
+  @EndUserText: { label: 'Amount in Local' }
+  @UI.lineItem: [{ position: 140, label: 'Amount', cssDefault.width: '150px' }]
+  @UI.identification: [{ hidden: true }]
+  DocAmount;
+
+}

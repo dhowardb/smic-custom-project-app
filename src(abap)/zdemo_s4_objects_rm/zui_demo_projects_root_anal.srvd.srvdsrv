@@ -1,0 +1,5 @@
+@EndUserText.label: 'Demo service definition for analytics'
+define service ZUI_DEMO_PROJECTS_ROOT_ANAL {
+  expose ZI_DEMO_PROJECTS_ROOT_ANAL as Analytics;
+  expose ZI_DEMO_PROJECTS_STATUS_AGGR as StatusAggregate;
+}

@@ -1,0 +1,36 @@
+managed implementation in class zbp_i_demo_itgroup unique;
+strict;
+with draft;
+
+define behavior for ZI_DEMO_ITGROUP alias ITGroup
+persistent table ZDT_DEMO_ITGROUP
+draft table zddt_dmo_itgroup
+lock master total etag LastChangedAt
+authorization master ( instance )
+etag master LocalLastChangedAt
+{
+  create;
+  update;
+  delete;
+
+  field ( numbering : managed, readonly ) ItgroupUuid;
+  field ( readonly ) LastChangedAt, LastChangedBy, CreatedAt, CreatedBy, LocalLastChangedAt;
+  field ( mandatory ) ItGroup;
+
+  draft action Edit;
+  draft action Activate;
+  draft action Discard;
+  draft action Resume;
+
+  draft determine action Prepare;
+
+  mapping for zdt_demo_itgroup {
+    ItgroupUuid = itgroup_uuid;
+    ItGroup = it_group;
+    CreatedBy = created_by;
+    CreatedAt = created_at;
+    LastChangedBy = last_changed_by;
+    LastChangedAt = last_changed_at;
+    LocalLastChangedAt = local_last_changed_at;
+  }
+}

@@ -1,0 +1,3 @@
+"use strict";sap.ui.define(["sap/fe/core/AppComponent"],function(t){"use strict";var e=t.extend("projectsdemoappv2.projectsdemoappv2.Component",{metadata:{manifest:"json"},init:function e(){t.prototype.init.call(this);this.getRouter().initialize()}});ret+
+urn e});                                                                                                                                                                                                                                                       
+//# sourceMappingURL=Component.js.map                                                                                                                                                                                                                          

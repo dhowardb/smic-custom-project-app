@@ -1,0 +1,425 @@
+@Metadata.layer: #CORE
+@UI: {
+  headerInfo: {
+                typeName: 'Project',
+                typeNamePlural: 'Projects',
+                title: { type: #STANDARD, label: 'TRM Project', value: 'ProjectName'} },
+  presentationVariant: [{ sortOrder: [{ by: 'Priority', direction: #ASC }],
+                          includeGrandTotal: true,
+                          text: 'Line Item',
+                          id: 'lineItemsAll', 
+  visualizations: [{ type: #AS_LINEITEM }]
+      } ] }
+
+@UI.selectionVariant: [{
+    qualifier: 'All',
+    text: 'List View' }]
+
+@UI.chart: [
+    {
+      qualifier: 'bulletChart',
+      title: 'WorkLog',
+      description: 'Projected worklog vs Actual Worklog',
+      chartType: #BULLET,
+      measures: ['TotalWorkHours'],
+      measureAttributes: [
+          { measure: 'TotalWorkHours',
+            role: #AXIS_1,
+            asDataPoint: true
+          }]
+    },
+    {
+      qualifier: 'progressIndicator',
+      title: 'Progress Indicator',
+      chartType: #DONUT,
+      measures: ['ProgressIndicator'],
+      measureAttributes: [
+          { measure: 'ProgressIndicator',
+            role: #AXIS_1,
+            asDataPoint: true }]
+            }]
+annotate view ZC_DEMO_S4_PROJECT_INTERFACE with
+{
+  @UI.facet: [
+//                 { id:              'Projects',
+//                   purpose:         #STANDARD,
+//                   type:            #IDENTIFICATION_REFERENCE,
+//                   label:           'Project',
+//                   position:        1 },
+               { id:              'Objects',
+                 purpose:         #STANDARD,
+                 type:            #LINEITEM_REFERENCE,
+                 label:           'Objects',
+                 position:        2,
+                 targetElement:   '_Objects' },
+               { id:              'Worklogs',
+                 purpose:         #STANDARD,
+                 type:            #LINEITEM_REFERENCE,
+                 label:           'Worklogs',
+                 position:        3,
+                 targetElement:   '_Worklogs' },
+               {
+                 id:              'Charms',
+                 purpose:         #STANDARD,
+                 type:            #LINEITEM_REFERENCE,
+                 label:           'Charms',
+                 position:        4,
+                 targetElement:   '_Charms'
+               },
+               {
+                 id:              'UsersAssigned',
+                 purpose:         #STANDARD,
+                 type:            #LINEITEM_REFERENCE,
+                 label:           'Users Assigned',
+                 position:        5,
+                 targetElement:   '_UserAssigned'
+               },
+               {
+                 id:              'ActionItems',
+                 purpose:         #STANDARD,
+                 type:            #LINEITEM_REFERENCE,
+                 label:           'Action Items',
+                 position:        6,
+                 targetElement:   '_Actions'
+               },
+               {
+                 purpose: #STANDARD,
+                 type: #COLLECTION,
+                 label: 'Project Details',
+                 id: 'collectionProjectsSection' },
+               {
+                 parentId: 'collectionProjectsSection',
+                 label: 'Project Information:',
+                 type: #FIELDGROUP_REFERENCE,
+                 targetQualifier: 'projectInformation',
+                 position: 10 },
+               {
+                 parentId: 'collectionProjectsSection',
+                 label: 'Project Owners:',
+                 type: #FIELDGROUP_REFERENCE,
+                 targetQualifier: 'projectOwners',
+                 position: 20 },
+               {
+                 parentId: 'collectionProjectsSection',
+                 label: 'Additional Details:',
+                 type: #FIELDGROUP_REFERENCE,
+                 targetQualifier: 'projectAdditional',
+                 position: 30 },
+               {
+                 parentId: 'collectionProjectsSection',
+                 label: 'Status Details:',
+                 type: #FIELDGROUP_REFERENCE,
+                 targetQualifier: 'projectStatus',
+                 position: 40 },
+               {
+                 parentId: 'collectionProjectsSection',
+                 label: 'Work Logs Info:',
+                 type: #FIELDGROUP_REFERENCE,
+                 targetQualifier: 'projectWorkLog',
+                 position: 50 },
+               {
+                 parentId: 'collectionProjectsSection',
+                 label: 'Transaction Code Details:',
+                 type: #FIELDGROUP_REFERENCE,
+                 targetQualifier: 'projectTransactionCode',
+                 position: 60 },
+               {
+                 parentId: 'collectionProjectsSection',
+                 label: 'Users Responsible:',
+                 type: #FIELDGROUP_REFERENCE,
+                 targetQualifier: 'projectUsers',
+                 position: 70 },
+               {
+                 parentId: 'collectionProjectsSection',
+                 label: 'Change Details:',
+                 type: #FIELDGROUP_REFERENCE,
+                 targetQualifier: 'changeDetails',
+                 position: 80 } ]
+
+  @UI: { lineItem: [{ position: 10, label: 'Project Name', importance: #HIGH }],
+         identification: [{ position: 10, label: 'Project Name' }],
+         fieldGroup: [{ qualifier: 'projectInformation', position: 10 }] }
+  //           fieldGroup: [{ type: #STANDARD, position: 10, qualifier: 'ProjectInformation', label: 'Project Information' }] }
+  @EndUserText.label: 'Project Name'
+  ProjectName;
+
+  @UI: {
+  //         lineItem: [{ position: 20, label: 'S4 Transaction code', importance: #LOW }],
+         identification: [{ position: 20, label: 'S4 Transaction code' }],
+         selectionField: [{ position: 20 }],
+         fieldGroup: [{ position: 10, qualifier: 'projectTransactionCode' }] }
+  @EndUserText.label: 'S4 Transaction code'
+  S4Tcode;
+
+  @UI: {
+  //         lineItem: [{ position: 30, label: 'ECC Transaction Code', importance: #LOW }],
+         identification: [{ position: 30, label: 'ECC Transaction code' }],
+         fieldGroup: [{ position: 10, qualifier: 'projectTransactionCode', label: 'ECC Transaction Code' }] }
+  EccTcode;
+
+  @UI: { lineItem: [{ position: 40, label: 'Project Start Date', importance: #HIGH, cssDefault.width: '8rem' }],
+         identification: [{ position: 40, label: 'Project Start Date' }],
+         fieldGroup: [{ qualifier: 'projectStatus', position: 20 }] }
+  @EndUserText.label: 'Project Start Date'
+  StartDate;
+
+  @UI: { lineItem: [{ position: 50, label: 'Projected Completion Date', importance: #HIGH, cssDefault.width: '8rem' }],
+         identification: [{ position: 50, label: 'Projected Completion Date' }],
+         fieldGroup: [{ qualifier: 'projectStatus', position: 30 }] }
+  @EndUserText.label: 'Projected Completion Date'
+  ProjectedDate;
+
+  @UI: { lineItem: [{ position: 60, label: 'Date of Completion', importance: #HIGH, cssDefault.width: '8rem' }],
+         identification: [{ position: 60, label: 'Date of Completion' }],
+         fieldGroup: [{ qualifier: 'projectStatus', position: 40 }] }
+  @EndUserText.label: 'Completion Date'
+  CompletionDate;
+
+  //  @UI: { lineItem: [{ position: 70, label: 'IT Group', importance: #HIGH, cssDefault.width: '8rem' }],
+  @UI: { lineItem: [{ position: 31, label: 'IT Group', importance: #HIGH, cssDefault.width: '8rem' }],
+         identification: [{ position: 70, label: 'IT Group' }],
+         fieldGroup: [{ qualifier: 'projectOwners', position: 10, label: 'IT Group' }]
+          }
+  @EndUserText.label: 'IT Group'
+  ITGroupAssigned;
+
+  //  @UI: { lineItem: [{ position: 80, label: 'Users assigned', importance: #HIGH, cssDefault.width: '8rem' }],
+  @UI: { lineItem: [{ position: 32, label: 'Users assigned', importance: #HIGH, cssDefault.width: '8rem' }],
+         identification: [{ position: 80, label: 'Users assigned' }],
+         fieldGroup: [{ qualifier: 'projectUsers', position: 30, label: 'Users assigned' }] }
+  @EndUserText.label: 'Users Assigned'
+  UsersAssigned;
+
+  @UI: { lineItem: [{ position: 33, label: 'Developer(s) assigned', importance: #HIGH, cssDefault.width: '7rem' }],
+         identification: [{ position: 81, label: 'Developer(s) assigned' }],
+         fieldGroup: [{ qualifier: 'projectUsers', position: 21, label: 'Developer(s) assigned' }] }
+  @EndUserText.label: 'Developer(s) Assigned'
+  DevelopersAssigned;
+
+  @UI: { lineItem: [{ position: 34, label: 'Functional(s) assigned', importance: #HIGH, cssDefault.width: '7rem' }],
+         identification: [{ position: 82, label: 'Functional(s) assigned' }],
+         fieldGroup: [{ qualifier: 'projectUsers', position: 22, label: 'Functional(s) assigned' }] }
+  @EndUserText.label: 'Functional(s) Assigned'
+  FunctionalsAssigned;
+
+  @UI: { lineItem: [{ position: 90, label: 'Project Sponsor', importance: #MEDIUM }],
+         identification: [{ position: 90, label: 'Project Sponsor' }],
+         fieldGroup: [{ qualifier: 'projectOwners', position: 20, label: 'Project Sponsor' } ]}
+  ProjectSponsor;
+  @UI: { lineItem: [{ position: 100, label: 'Process Owner', importance: #MEDIUM }],
+         identification: [{ position: 100, label: 'Process Owner' }],
+         fieldGroup: [{ qualifier: 'projectOwners', position: 30, label: 'Process Owner' }]}
+  ProcessOwner;
+
+  @UI: { lineItem: [{ position: 110, label: 'Requestor Company', importance: #MEDIUM }],
+         identification: [{ position: 110, label: 'Requestor Company' }],
+         fieldGroup: [{ qualifier: 'projectOwners', position: 40, label: 'Requestor Company' }]
+         }
+  RequestorCompany;
+
+  @UI: { lineItem: [{ position: 120, label: 'Requestor Department', importance: #MEDIUM }],
+       identification: [{ position: 120, label: 'Requestor Department' }],
+       fieldGroup: [{ qualifier: 'projectOwners', position: 50, label: 'Requestor Department' }]
+       }
+  RequestorDepartment;
+
+  @UI: { lineItem: [{ position: 130, label: 'Affected Platforms', importance: #MEDIUM }],
+       identification: [{ position: 130, label: 'Affected Platforms' }],
+       fieldGroup: [{ qualifier: 'projectAdditional', position: 10, label: 'Affected Application/Platforms' }]
+       }
+  AffectedPlatforms;
+
+  @UI: { lineItem: [{ position: 140, label: 'Charm Number', importance: #MEDIUM }],
+       identification: [{ position: 140, label: 'Charm Number' }],
+       fieldGroup: [{ qualifier: 'projectAdditional', position: 20, label: 'Charm number' }]
+       }
+  CharmNumber;
+
+  @UI: { lineItem: [{ position: 150, label: 'Work Item', importance: #MEDIUM }],
+       identification: [{ position: 150, label: 'Work Item' }],
+       fieldGroup: [{ qualifier: 'projectAdditional', position: 30, label: 'Work Item' }]
+       }
+  WorkItem;
+
+  @UI: { lineItem: [{ position: 160, label: 'Objective or Purpose', importance: #MEDIUM }],
+       identification: [{ position: 160, label: 'Objective or Purpose' }],
+       fieldGroup: [{ qualifier: 'projectAdditional', position: 40, label: 'Objective/Purpose' }]
+       }
+  ObjectiveOrPurpose;
+
+  @UI: { lineItem: [{ position: 170, label: 'Type', importance: #MEDIUM }],
+       identification: [{ position: 170, label: 'Type' }],
+  //       fieldGroup: [{ qualifier: 'projectAdditional', position: 50, label: 'Type' }] }
+       fieldGroup: [{ qualifier: 'projectInformation', position: 30, label: 'Type' }] }
+  @EndUserText.quickInfo: 'Project Type'
+  ProjectType;
+
+  @UI: { lineItem: [{ position: 180, label: 'Classification', importance: #MEDIUM }],
+       identification: [{ position: 180, label: 'Classification' }],
+       fieldGroup: [{ qualifier: 'projectAdditional', position: 50, label: 'Classification' }]
+       }
+  @EndUserText.quickInfo: 'Project Classification'
+  Classification;
+
+  @UI: { lineItem: [{ position: 190, label: 'Phase', importance: #MEDIUM }],
+       identification: [{ position: 190, label: 'Phase' }],
+       fieldGroup: [{ qualifier: 'projectAdditional', position: 60, label: 'Phase' }]
+       }
+  @EndUserText.quickInfo: 'Project Phase'
+  Phase;
+
+  @UI: { lineItem: [{ position: 200, label: 'Effort Saved/ Benefit', importance: #MEDIUM }],
+       identification: [{ position: 200, label: 'Effort Saved/ Benefit' }],
+       fieldGroup: [{ qualifier: 'projectAdditional', position: 70, label: 'Effort Saved/ Benefit' }]
+       }
+  EffortSavedOrBenefit;
+
+  @UI: { lineItem: [{ position: 210, label: 'Additional Detail', importance: #MEDIUM }],
+       identification: [{ position: 210, label: 'Additional Detail' }],
+       fieldGroup: [{ qualifier: 'projectAdditional', position: 80, label: 'Additional Detail' }]
+       }
+  AdditionalDetail;
+
+  @UI: { lineItem: [{ position: 220, label: 'Additional Detail', importance: #MEDIUM }],
+       identification: [{ position: 220, label: 'Additional Detail' }],
+       fieldGroup: [{ qualifier: 'projectAdditional', position: 90, label: 'Additional Detail' }]
+       }
+  AdditionalDetail_2;
+
+  @UI: { lineItem: [{ position: 230, label: 'Complexity', importance: #MEDIUM }],
+       identification: [{ position: 230, label: 'Complexity' }],
+       fieldGroup: [{ qualifier: 'projectInformation', position: 40, label: 'Complexity' }]
+       }
+  @EndUserText.quickInfo: 'Proj(H: > 3, M: 1-3, L: <1)Mos, Maint(H: 7-10, M: 4-6, L: 1-3)Day'
+  Complexity;
+
+  @UI: {
+    dataPoint: {
+      qualifier: 'ProjectDuration',
+      targetValueElement: 'ProjectTotalDuration',
+      criticality: 'ProjectDurationCriticality',
+      criticalityRepresentation: #WITH_ICON,
+      visualization: #PROGRESS,
+      title: 'Progress Indicator' },
+
+    lineItem: [{ position: 240, label: 'Project Duration',
+                 importance: #HIGH, type: #AS_DATAPOINT }] }
+  ProjectDuration;
+
+  @UI: { lineItem: [{ position: 250, label: 'Project Status', importance: #HIGH,
+                      criticalityRepresentation: #WITHOUT_ICON, criticality: 'StatusCriticality',
+                      cssDefault.width: '10rem' },
+                      { type: #FOR_ACTION, dataAction: 'completeProject', label: 'Complete Project' },
+                      { type: #FOR_ACTION, dataAction: 'resetProject', label: 'Reset Project' }],
+         identification: [{ position: 90, label: 'Project Status' },
+                          { type: #FOR_ACTION, dataAction: 'completeProject', label: 'Complete Project' },
+                          { type: #FOR_ACTION, dataAction: 'resetProject', label: 'Reset Project' },
+                          { type: #FOR_ACTION, dataAction: 'addObjectsViaTR', label: 'Add Object via TR' }],
+         selectionField: [{ position: 40 }],
+         fieldGroup: [{ qualifier: 'projectStatus', position: 10 }] }
+  @EndUserText.label: 'Project Status'
+  TestStatus;
+
+  @UI: {  dataPoint: {
+           title: 'Progress',
+           qualifier: 'ProgressIndicator',
+           targetValue: 100,
+  //           targetValueElement: 'ProjectedWorkHours', //The relation between the value and the target value will be displayed as a percentage
+           criticality: 'StatusCriticality'
+      },
+         lineItem: [{ position: 260, label: 'Progress', importance: #HIGH,
+                      type: #AS_CHART, valueQualifier: 'progressIndicator' }],
+         identification: [{ position: 170, label: 'Progress' }],
+         fieldGroup: [{ qualifier: 'projectInformation', label: 'Progress(%)', position: 50 }] }
+  @EndUserText.label: 'Progress'
+  ProgressIndicator;
+
+  @UI: {
+  //         lineItem: [{ position: 110, label: 'System Source', importance: #LOW }],
+         identification: [{ position: 270, label: 'System Source' }],
+         selectionField: [{ position: 30 }]
+  //         fieldGroup: [{ qualifier: 'projectInformation', position: 40 }]
+         }
+  @EndUserText.label: 'System Source'
+  SystemSource;
+
+  @UI.hidden: true
+  //  @UI: { lineItem: [{ position: 120, label: 'Remediated By', importance: #LOW }],
+  //         identification: [{ position: 120, label: 'Remediated By' }],
+  //         fieldGroup: [{ qualifier: 'projectUsers', position: 30, label: 'Remediated By' }] }
+  RemediatedBy;
+  
+  @UI.hidden: true
+  @UI: {
+  //         lineItem: [{ position: 130, label: 'Workstream Lead', importance: #LOW }],
+         identification: [{ position: 280, label: 'Workstream Lead' }],
+         fieldGroup: [{ qualifier: 'projectUsers', position: 10, label: 'Workstream Lead' }] }
+  WorkstreamLead;
+  
+  @UI.hidden: true
+  @UI: {
+  //         lineItem: [{ position: 140, label: 'Developer assigned', importance: #LOW }],
+         identification: [{ position: 290, label: 'Developer assigned' }],
+         fieldGroup: [{ qualifier: 'projectUsers', position: 20, label: 'Developer assigned' }] }
+  DeveloperAssigned;
+
+  @UI: {
+  //         lineItem: [{ position: 150, label: 'Projected Work Hours', importance: #MEDIUM }],
+         identification: [{ position: 300, label: 'Projected Work Hours' }],
+         fieldGroup: [{ qualifier: 'projectWorkLog', position: 10, label: 'Projected Work Hours' }] }
+  ProjectedWorkHours;
+
+  @UI: {
+  //         lineItem: [{ position: 160, label: 'Actual Work Hours', importance: #MEDIUM }],
+         identification: [{ position: 310, label: 'Actual Work Hours' }],
+         fieldGroup: [{ qualifier: 'projectWorkLog', position: 20, label: 'Actual Work Hours' }] }
+  TotalWorkHours;
+
+  @UI: { dataPoint: {
+           title: 'Projected vs Actual(Work)',
+           qualifier: 'TotalWorkHours', //IntegerValue: horizontal bar in relation to the goal line
+           targetValueElement: 'ProjectedWorkHours', //visual goal line in the UI
+           criticality: 'WorkLogCriticality',
+           minimumValue: 0 //Minimal value, needed for output rendering
+      },
+           lineItem: [{ position: 260, label: 'Projected vs Actual(Work)', importance: #HIGH,
+                        type: #AS_CHART, valueQualifier: 'bulletChart' }] }
+  WorkLogChartValue;
+
+  @UI: {
+  //         lineItem: [{ position: 180, label: 'Created By', importance: #MEDIUM, valueQualifier: 'bulletChart' }],
+         identification: [{ position: 250, label: 'Created By' }],
+         selectionField: [{ position: 60 }],
+         fieldGroup: [{ qualifier: 'changeDetails', position: 10 }] }
+  @EndUserText.label: 'Created By'
+  CreatedBy;
+
+  @UI: {
+  //         lineItem: [{ position: 190, label: 'Created At', importance: #MEDIUM }],
+         identification: [{ position: 310, label: 'Created At' }],
+         fieldGroup: [{ qualifier: 'changeDetails', position: 20 }] }
+  @EndUserText.label: 'Created At'
+  CreatedAt;
+
+  @UI: { lineItem: [{ position: 270, label: 'Priority', importance: #HIGH, criticalityRepresentation: #WITHOUT_ICON, criticality: 'PriorityCriticality' }],
+         identification: [{ position: 270, label: 'Priority' }],
+         selectionField: [{ position: 50 }],
+         fieldGroup: [{ qualifier: 'projectInformation', position: 20 }] }
+  @EndUserText.label: 'Priority'
+  Priority;
+
+  @UI: {
+  //         lineItem: [{ position: 210, label: 'Last Changed By', importance: #LOW }],
+         identification: [{ position: 320, label: 'Last Changed By' }],
+         selectionField: [{ position: 70 }],
+         fieldGroup: [{ qualifier: 'changeDetails', position: 30 }] }
+  @EndUserText.label: 'Last Changed By'
+  LastChangedBy;
+
+  @UI: {
+  //         lineItem: [{ position: 220, label: 'Last Changed At', importance: #LOW }],
+         identification: [{ position: 330, label: 'Last Changed At' }],
+         fieldGroup: [{ qualifier: 'changeDetails', position: 40 }] }
+  @EndUserText.label: 'Last Changed At'
+  LastChangedAt;
+}

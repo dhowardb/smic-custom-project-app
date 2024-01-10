@@ -1,0 +1,2 @@
+"use strict";sap.ui.define(["sap/fe/core/AppComponent"],function(e){var t=e.extend("odatav4test2.Component",{metadata:{manifest:"json"}});return t});                                                                                                          
+//# sourceMappingURL=Component.js.map                                                                                                                                                                                                                          
