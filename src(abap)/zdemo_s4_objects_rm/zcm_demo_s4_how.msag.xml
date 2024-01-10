@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_MSAG" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <T100A>
+    <ARBGB>ZCM_DEMO_S4_HOW</ARBGB>
+    <MASTERLANG>E</MASTERLANG>
+    <STEXT>Demo S4 error messages</STEXT>
+   </T100A>
+   <T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZCM_DEMO_S4_HOW</ARBGB>
+     <MSGNR>001</MSGNR>
+     <TEXT>Project name is mandatory</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZCM_DEMO_S4_HOW</ARBGB>
+     <MSGNR>002</MSGNR>
+     <TEXT>Priority &amp;1 is not valid</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZCM_DEMO_S4_HOW</ARBGB>
+     <MSGNR>003</MSGNR>
+     <TEXT>Project Status &amp;1 is not valid</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZCM_DEMO_S4_HOW</ARBGB>
+     <MSGNR>004</MSGNR>
+     <TEXT>Projected Date &amp;1 should be after start date</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZCM_DEMO_S4_HOW</ARBGB>
+     <MSGNR>005</MSGNR>
+     <TEXT>Transaction &amp;1 is not valid</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZCM_DEMO_S4_HOW</ARBGB>
+     <MSGNR>006</MSGNR>
+     <TEXT>User &amp;1 is not found</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZCM_DEMO_S4_HOW</ARBGB>
+     <MSGNR>007</MSGNR>
+     <TEXT>Objects with TR &amp;1 not found. Transaction failed!</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZCM_DEMO_S4_HOW</ARBGB>
+     <MSGNR>008</MSGNR>
+     <TEXT>Duplicate Objects found in this project with TR &amp;1</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZCM_DEMO_S4_HOW</ARBGB>
+     <MSGNR>009</MSGNR>
+     <TEXT>Total Progress &amp;1 more than 100%</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZCM_DEMO_S4_HOW</ARBGB>
+     <MSGNR>010</MSGNR>
+     <TEXT>Start Date &amp;1 should be before projected date</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZCM_DEMO_S4_HOW</ARBGB>
+     <MSGNR>011</MSGNR>
+     <TEXT>User &amp;1 is already assigned in this project</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZCM_DEMO_S4_HOW</ARBGB>
+     <MSGNR>012</MSGNR>
+     <TEXT>IT Group is mandatory</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZCM_DEMO_S4_HOW</ARBGB>
+     <MSGNR>013</MSGNR>
+     <TEXT>Start Date is mandatory when project status is &quot;In Progress&quot;</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZCM_DEMO_S4_HOW</ARBGB>
+     <MSGNR>014</MSGNR>
+     <TEXT>Start Date should be initial when project status is &quot;Not Yet Started&quot;</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZCM_DEMO_S4_HOW</ARBGB>
+     <MSGNR>015</MSGNR>
+     <TEXT>Transport Request is mandatory</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZCM_DEMO_S4_HOW</ARBGB>
+     <MSGNR>016</MSGNR>
+     <TEXT>Transport Request &amp;1 is not valid</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZCM_DEMO_S4_HOW</ARBGB>
+     <MSGNR>900</MSGNR>
+     <TEXT>Objects created successfully</TEXT>
+    </T100>
+   </T100>
+  </asx:values>
+ </asx:abap>
+</abapGit>

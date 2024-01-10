@@ -1,0 +1,19 @@
+@EndUserText.label: 'Service Definition for Demo S4 Interface'
+define service ZUI_DEMO_S4_PROJECT_INTERFACE {
+  expose ZC_DEMO_S4_PROJECT_INTERFACE as Projects;
+  expose ZC_DEMO_S4_OBJECTS as Objects;
+  expose ZC_DEMO_WORKLOG as Worklogs;
+  expose ZC_DEMO_CHARM as Charms;
+  expose ZC_DEMO_FEEDS_CONTENT as Feeds;
+  expose ZC_DEMO_USERS_ASSIGNED as UsersAssigned;
+  expose ZC_DEMO_ACTIONS as ActionItems;
+  expose ZC_DEMO_TRANSPORT_REQUESTS as TransportRequests;
+  expose ZI_DEMO_SYSTEMS as Systems;
+  expose ZI_DEMO_STATUS as Status;
+  expose ZI_DEMO_PRIORITY as Priority;
+  expose ZI_DEMO_USERS as Users;
+  expose ZI_DEMO_TCODES as CustomTransactions;
+  expose ZI_DEMO_TR_WITH_OBJECTS as TrWithObjects;
+  expose ZI_DEMO_PROJECTS_STATUS_ANA as ProjectStatusAnalytics;
+  expose ZI_DEMO_PROJECT_PRIORITY_SAP as ProjectPriorityAnalyticsSAP;
+}

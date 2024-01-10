@@ -1,0 +1,5 @@
+CLASS zbp_i_demo_user_roles DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF zi_demo_user_roles.
+ENDCLASS.
+
+CLASS zbp_i_demo_user_roles IMPLEMENTATION.
+ENDCLASS.

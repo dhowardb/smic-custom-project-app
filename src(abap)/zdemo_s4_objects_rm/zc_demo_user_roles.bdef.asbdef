@@ -1,0 +1,16 @@
+projection;
+strict;
+use draft;
+
+define behavior for ZC_DEMO_USER_ROLES alias UserRoles
+{
+  use create;
+  use update;
+  use delete;
+
+  use action Edit;
+  use action Activate;
+  use action Resume;
+  use action Discard;
+  use action Prepare;
+}

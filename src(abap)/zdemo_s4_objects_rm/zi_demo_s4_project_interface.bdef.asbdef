@@ -1,0 +1,397 @@
+managed;
+strict;
+with draft;
+
+define behavior for ZI_DEMO_S4_PROJECT_INTERFACE alias Projects
+implementation in class zbp_i_demo_project_interface unique
+persistent table zdt_demo_s4_trm
+draft table zddt_demo_s4_trm
+lock master
+total etag LastChangedAt
+authorization master ( instance )
+etag master LocalLastChangedAt
+{
+  create;
+  update ( features : instance );
+  delete;
+
+  draft action Edit;
+  draft action Activate;
+  draft action Discard;
+  draft action Resume;
+
+  field ( numbering : managed, readonly ) ProjectUUID;
+  field ( readonly ) LastChangedAt, LastChangedBy, CreatedAt, CreatedBy, LocalLastChangedAt;
+  field ( readonly ) TotalWorkHours, ProgressIndicator, CompletionDate;
+  field ( readonly ) Complexity, ProjectType;
+  field ( readonly ) UsersAssigned, CharmNumber;
+  field ( readonly ) DevelopersAssigned, FunctionalsAssigned;
+//  field ( mandatory ) ProjectName, ITGroupAssigned, StartDate;
+  field ( mandatory ) ProjectName, ITGroupAssigned;
+
+  //associations
+  association _Objects { internal create; with draft; }
+  association _Worklogs { create ( features : instance ); with draft; }
+  association _Charms { create ( features : instance ); with draft; }
+  association _Feeds { create; with draft; }
+  association _UserAssigned { create; with draft; }
+  association _Actions { create; with draft; }
+  //Actions
+  action ( features : instance ) completeProject result [1] $self;
+  action ( features : instance ) resetProject result [1] $self;
+
+  //Custom actions in object interface
+  action ( features : instance, lock : none ) addObjectsViaTR parameter ZRK_ADD_TR_WITH_OBJECTS result [1] $self;
+  //calculations
+  internal action recalculateTotalWorkLogs;
+  internal action recalculateTotalProgress;
+  internal action recollateUsersAssigned;
+
+  internal action recollateDevelopersAssigned;
+  internal action recollateFunctionalsAssigned;
+
+  internal action recollateCharms;
+
+  //effects
+//  internal action clearStartDateStatusNotStarted;
+
+  determination setProjectInitialStatus on modify { field TestStatus; create; }
+  determination setProjectInitialPriority on modify { field Priority; create; }
+
+  //Mandatory methods
+  validation validateProjectNotInitial on save { field ProjectName; create; }
+  validation validateITGroupNotInitial on save { field ITGroupAssigned; create; }
+  validation validateStartDateNotInitial on save { field StartDate; create; update; }
+
+  validation validateStartDateNotStarted on save { field StartDate; create; update; }
+
+  validation validateStatus on save { field TestStatus; create; }
+  validation validatePriority on save { field Priority; create; }
+  validation validateDates on save { field ProjectedDate, StartDate; create; }
+  validation validateRemediatedBy on save { field RemediatedBy; create; }
+  validation validateWorkStreamLead on save { field WorkstreamLead; create; }
+  validation validateDeveloper on save { field DeveloperAssigned; create; }
+  validation validateTCodes on save { field S4Tcode; create; }
+
+  draft determine action Prepare
+
+  {
+    validation validateProjectNotInitial;
+    validation validateITGroupNotInitial;
+    validation validateStartDateNotInitial;
+    validation validateStartDateNotStarted;
+    validation validatePriority;
+    validation validateStatus;
+    validation validateDates;
+    validation validateRemediatedBy;
+    validation validateWorkStreamLead;
+    validation validateDeveloper;
+    validation validateTCodes;
+
+    validation UsersAssigned~validateUserIsDuplicate;
+    validation TransportRequests~validateTransportIsNotInitial;
+    validation TransportRequests~validateTransportRequest;
+  }
+
+  mapping for zdt_demo_s4_trm
+  {
+    ProjectUUID = project_uuid;
+    ProjectName = project_name;
+    EccTcode = ecc_tcode;
+    S4Tcode = s4_tcode;
+    SystemSource = system_source;
+    RemediatedBy = remediated_by;
+    WorkstreamLead = workstream_lead;
+    DeveloperAssigned = developer_assigned;
+    ITGroupAssigned = it_group_assigned;
+    UsersAssigned = users_assigned;
+    DevelopersAssigned = developers_assigned;
+    FunctionalsAssigned = functionals_assigned;
+    ProjectSponsor = project_sponsor;
+    ProcessOwner = process_owner;
+    RequestorCompany = requestor_company;
+    RequestorDepartment = requestor_department;
+    AffectedPlatforms = affected_platforms;
+    CharmNumber = charm_number;
+    WorkItem = work_item;
+    ObjectiveOrPurpose = objective_or_purpose;
+    ProjectType = project_type;
+    ProjectTypeDescription = project_type_description;
+    Classification = classification;
+    Phase = phase;
+    EffortSavedOrBenefit = effort_saved_or_benefit;
+    AdditionalDetail = additional_detail;
+    AdditionalDetail_2 = additional_detail_2;
+    Complexity = complexity;
+    StartDate = start_date;
+    ProjectedDate = projected_date;
+    CompletionDate = completion_date;
+    TestStatus = test_status;
+    Priority = priority;
+    ProjectedWorkHours = projected_worklog;
+    TotalWorkHours = actual_worklog;
+    ProgressIndicator = progress_indicator;
+    CreatedBy = created_by;
+    CreatedAt = created_at;
+    LastChangedBy = last_changed_by;
+    LastChangedAt = last_changed_at;
+    LocalLastChangedAt = local_last_changed_at;
+  }
+}
+
+define behavior for ZI_DEMO_S4_OBJECTS alias Objects
+implementation in class zbp_i_demo_s4_objects unique
+persistent table zdt_demo_s4_obj
+draft table zddt_demo_s4_obj
+lock dependent by _Projects
+authorization dependent by _Projects
+etag master LocalLastChangedAt
+{
+  delete ( features : instance );
+
+  field ( numbering : managed, readonly ) ObjectUUID;
+  field ( readonly ) ProjectUUID;
+  field ( readonly ) CreatedBy, CreatedAt, LastChangedBy, LastChangedAt, LocalLastChangedAt;
+
+  association _Projects { with draft; }
+
+  mapping for zdt_demo_s4_obj
+  {
+    ObjectUUID = object_uuid;
+    ProjectUUID = project_uuid;
+    ProjectName = project_name;
+    ObjectName = object_name;
+    ObjectLineItem = object_line_item;
+    ObjectType = object_type;
+    TransportRequest = transport_request;
+    ObjectPackage = object_package;
+    ObjectOwner = object_owner;
+    ObjectOwnerLastChangedAt = object_changed_at;
+    CreatedBy = created_by;
+    CreatedAt = created_at;
+    LastChangedBy = last_changed_by;
+    LastChangedAt = last_changed_at;
+    LocalLastChangedAt = local_last_changed_at;
+  }
+}
+
+define behavior for ZI_DEMO_WORKLOG alias Worklogs
+implementation in class zbp_i_demo_s4_worklogs unique
+persistent table zdt_demo_worklog
+draft table zddt_demoworklog
+lock dependent by _Projects
+authorization dependent by _Projects
+etag master LocalLastChangedAt
+{
+  update ( features : instance );
+  delete ( features : instance );
+
+  field ( numbering : managed, readonly ) WorklogUuid;
+  field ( readonly ) ProjectUUID;
+  field ( readonly ) CreatedBy, CreatedAt, LastChangedBy, LastChangedAt, LocalLastChangedAt;
+
+  determination calculateTotalWorkLogs on save { create; update; delete; }
+  determination calculateTotalProgress on save { create; update; delete; }
+
+  association _Projects { with draft; }
+
+  mapping for zdt_demo_worklog
+  {
+    WorklogUuid = worklog_uuid;
+    ProjectUuid = project_uuid;
+    LogHours = log_hours;
+    Description = description;
+    ProgressValue = progress_value;
+    CreatedBy = created_by;
+    CreatedAt = created_at;
+    LastChangedBy = last_changed_by;
+    LastChangedAt = last_changed_at;
+    LocalLastChangedAt = local_last_changed_at;
+  }
+
+}
+
+define behavior for ZI_DEMO_CHARM alias Charms
+implementation in class zbp_i_demo_s4_charms unique
+persistent table zdt_demo_charm
+draft table zddt_democharm
+lock dependent by _Projects
+authorization dependent by _Projects
+etag master LocalLastChangedAt
+{
+  update ( features : instance );
+  delete ( features : instance );
+
+  field ( numbering : managed, readonly ) CharmUuid;
+  field ( readonly ) ProjectUUID, TransportRequest;
+  field ( readonly ) CreatedBy, CreatedAt, LastChangedBy, LastChangedAt, LocalLastChangedAt;
+  field ( mandatory ) CharmNumber;
+
+  determination collateCharms on save { create; update; delete; }
+  association _TransportRequests { create; with draft; }
+  association _Projects { with draft; }
+
+  mapping for zdt_demo_charm
+  {
+    CharmUuid = charm_uuid;
+    ProjectUuid = project_uuid;
+    CharmNumber = charm_number;
+    TransportRequest = transport_request;
+    Description = description;
+    DateCreated = date_created;
+    CreatedBy = created_by;
+    CreatedAt = created_at;
+    LastChangedBy = last_changed_by;
+    LastChangedAt = last_changed_at;
+    LocalLastChangedAt = local_last_changed_at;
+  }
+
+}
+
+define behavior for ZI_DEMO_FEEDS_CONTENT alias Feeds
+persistent table zdt_demo_feeds
+draft table zddt_demo_feeds
+lock dependent by _Projects
+authorization dependent by _Projects
+etag master LocalLastChangedAt
+{
+
+  update;
+  delete;
+
+  field ( numbering : managed, readonly ) FeedContentUuid;
+  field ( readonly ) ProjectUuid;
+  field ( readonly ) Sender;
+  field ( readonly ) CreatedBy, CreatedAt, LastChangedBy, LastChangedAt, LocalLastChangedAt;
+
+  association _Projects { with draft; }
+
+  mapping for zdt_demo_feeds
+  {
+    FeedContentUuid = feed_content_uuid;
+    ProjectUuid = project_uuid;
+    Sender = sender;
+    Info = info;
+    Content = content;
+    CreatedBy = created_by;
+    CreatedAt = created_at;
+    LastChangedBy = last_changed_by;
+    LastChangedAt = last_changed_at;
+    LocalLastChangedAt = local_last_changed_at;
+  }
+}
+
+define behavior for ZI_DEMO_USERS_ASSIGNED alias UsersAssigned
+implementation in class zbp_i_demo_s4_users_assigned unique
+persistent table zdt_demo_usrass
+draft table zddt_demo_usras
+lock dependent by _Projects
+authorization dependent by _Projects
+etag master LocalLastChangedAt
+{
+
+  update ( features : instance );
+  delete ( features : instance );
+
+  determination collateUsersAssigned on save { create; update; delete; }
+  determination collateDevelopersAssigned on save { create; update; delete; }
+  determination collateFunctionalsAssigned on save { create; update; delete; }
+  validation validateUserIsDuplicate on save { field UsersAssigned; create; update; }
+
+  field ( numbering : managed ) UsersAssignedUuid;
+  field ( mandatory ) UsersAssigned;
+  field ( readonly ) ProjectUuid;
+  field ( readonly ) Fullname, EmailAddress, UserRole;
+  field ( readonly ) CreatedBy, CreatedAt, LastChangedBy, LastChangedAt, LocalLastChangedAt;
+
+  association _Projects { with draft; }
+
+  mapping for zdt_demo_usrass
+  {
+    UsersAssigned = users_assigned;
+    UsersAssignedUuid = usersassigned_uuid;
+    ProjectUuid = project_uuid;
+    Fullname = fullname;
+    EmailAddress = email_address;
+    CreatedBy = created_by;
+    CreatedAt = created_at;
+    LastChangedBy = last_changed_by;
+    LastChangedAt = last_changed_at;
+    LocalLastChangedAt = local_last_changed_at;
+  }
+}
+
+define behavior for ZI_DEMO_ACTIONS alias Actions
+implementation in class zbp_i_demo_s4_actions unique
+persistent table zdt_demo_actions
+draft table zddt_demoactions
+lock dependent by _Projects
+authorization dependent by _Projects
+etag master LocalLastChangedAt
+{
+  update ( features : instance );
+  delete ( features : instance );
+
+  field ( numbering : managed, readonly ) ActionItemUuid;
+  field ( readonly ) ProjectUUID;
+  field ( readonly ) CreatedBy, CreatedAt, LastChangedBy, LastChangedAt, LocalLastChangedAt;
+  field ( mandatory ) ActionItem, DateOfAction;
+
+  association _Projects { with draft; }
+
+  mapping for zdt_demo_actions
+  {
+    ActionItemUuid = action_item_uuid;
+    ProjectUuid = project_uuid;
+    ActionItem = action_item;
+    Description = description;
+    DateOfAction = date_of_action;
+    CreatedBy = created_by;
+    CreatedAt = created_at;
+    LastChangedBy = last_changed_by;
+    LastChangedAt = last_changed_at;
+    LocalLastChangedAt = local_last_changed_at;
+  }
+
+}
+
+define behavior for ZI_DEMO_TRANSPORT_REQUESTS alias TransportRequests
+implementation in class zbp_i_demo_s4_transport unique
+persistent table zdt_demo_tr
+draft table zddt_demo_tr
+lock dependent by _Projects
+authorization dependent by _Projects
+etag master LocalLastChangedAt
+{
+  update ( features : instance );
+  delete ( features : instance );
+
+  field ( numbering : managed, readonly ) TransportRequestUuid;
+  field ( readonly ) CharmUuid,ProjectUUID;
+  field ( readonly ) CreatedBy, CreatedAt, LastChangedBy, LastChangedAt, LocalLastChangedAt;
+  field ( readonly ) Description;
+  field ( mandatory ) TransportRequest;
+
+  association _Projects { with draft; }
+  association _Charms { with draft; }
+
+  validation validateTransportIsNotInitial on save { create; update; }
+  validation validateTransportRequest on save { create; update; }
+
+  determination setTransportRequestDescription on modify { field Description; create; update; }
+
+  mapping for zdt_demo_tr
+  {
+    TransportRequestUuid = transport_request_uuid;
+    CharmUuid = charm_uuid;
+    ProjectUuid = project_uuid;
+    TransportRequest = transport_request;
+    Description = description;
+    CreatedBy = created_by;
+    CreatedAt = created_at;
+    LastChangedBy = last_changed_by;
+    LastChangedAt = last_changed_at;
+    LocalLastChangedAt = local_last_changed_at;
+  }
+
+}

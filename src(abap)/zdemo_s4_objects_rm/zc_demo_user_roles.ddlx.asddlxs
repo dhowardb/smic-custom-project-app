@@ -1,0 +1,47 @@
+@Metadata.layer: #CORE
+@UI: { 
+  headerInfo: { typeName: 'User Role',
+                typeNamePlural: 'User Roles',
+                title: { type: #STANDARD, value: 'Username' } }}
+annotate view ZC_DEMO_USER_ROLES
+    with 
+{              
+    @UI.hidden: true
+    UserNameRoleUuid;
+    
+    @UI: { lineItem: [{ position: 10, label: 'User Name' }],
+           identification: [{ position: 10, label: 'User Name' }] }
+    @EndUserText.label: 'User Name'
+    Username;
+    
+    @UI: { lineItem: [{ position: 20, label: 'Role' }],
+           identification: [{ position: 20, label: 'Role' }] }
+    @EndUserText.label: 'Role'           
+    Role;
+    
+    @UI: { lineItem: [{ position: 30, label: 'Created By' }],
+           identification: [{ position: 30, label: 'Created By' }] }
+    @EndUserText.label: 'Created By'            
+    CreatedBy;
+    
+    @UI: { lineItem: [{ position: 40, label: 'Created At' }],
+           identification: [{ position: 40, label: 'Created At' }] }
+    @EndUserText.label: 'Created At'           
+    CreatedAt;
+    
+    @UI: { lineItem: [{ position: 50, label: 'Last Changed By' }],
+           identification: [{ position: 50, label: 'Last Changed By' }] } 
+    @EndUserText.label: 'Last Changed By'           
+    LastChangedBy;
+    
+    @UI: { lineItem: [{ position: 60, label: 'Last Changed At' }],
+           identification: [{ position: 60, label: 'Last Changed At' }] }
+    @EndUserText.label: 'Last Changed At'           
+    LastChangedAt;
+    
+    @UI: { lineItem: [{ position: 70, label: 'Local Last Changed At' }],
+           identification: [{ position: 70, label: 'Local Last Changed At' }] }
+    @EndUserText.label: 'Local Last Changed At'           
+    LocalLastChangedAt;
+    
+}

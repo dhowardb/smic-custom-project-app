@@ -1,0 +1,6 @@
+@EndUserText.label: 'Demo for Enrollment of User Roles'
+define service ZUI_DEMO_USER_ROLES {
+  expose ZC_DEMO_USER_ROLES as UserRoles;
+  expose ZI_DEMO_USERS as Users;
+  expose ZI_DEMO_USER_ROLES_LISTS as RolesLists;
+}

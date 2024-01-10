@@ -1,0 +1,58 @@
+unmanaged implementation in class zbp_dmo_open_items unique;
+strict;
+with draft;
+
+define behavior for ZI_DMO_OPEN_ITEMS alias OpenItems
+
+//late numbering
+//lock master
+early numbering
+lock master total etag DocumentNumber
+authorization master ( instance )
+draft table zddt_dmo_open_fi
+etag master DocumentNumber
+{
+
+  draft action Edit;
+  draft action Activate;
+  draft action Discard;
+  draft action Resume;
+
+  field ( mandatory ) CompanyCode, DocumentType;
+
+  field ( readonly )
+  DocumentNumber,
+  CustomerNumber,
+  ClearingDocument,
+  ClearingDate,
+  DocumentLine,
+  GLIndicator,
+  GLTransactionType,
+  AssignmentNumber;
+
+  draft determine action Prepare;
+
+  create;
+  update;
+  delete;
+
+  //  mapping for ZI_DMO_OPEN_ITEMS
+  //  {
+  //
+  //    AssignmentNumber = AssignmentNumber;
+  //    ClearingDate = ClearingDate;
+  //    ClearingDocument = ClearingDocument;
+  //    CompanyCode = CompanyCode;
+  //    CurrencyCode = CurrencyCode;
+  //    CustomerNumber = CustomerNumber;
+  //    DebitCreditIndicator = DebitCreditIndicator;
+  //    Description = Description;
+  //    DocAmount = DocAmount;
+  //    DocumentLine = DocumentLine;
+  //    DocumentType = DocumentType;
+  //    FiscalYear = FiscalYear;
+  //    GLIndicator = GLIndicator;
+  //    GLTransactionType = GLTransactionType;
+  //  }
+
+}

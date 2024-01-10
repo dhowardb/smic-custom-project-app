@@ -1,0 +1,46 @@
+@Metadata.layer: #CORE
+@UI: {
+  headerInfo: { typeName: 'Object',
+                typeNamePlural: 'Objects',
+                title: { type: #STANDARD, value: 'ObjectName' } },
+
+  presentationVariant: [{ maxItems: 50, 
+  visualizations: [{ type: #AS_LINEITEM }]
+      } ] }
+
+annotate view ZC_DEMO_S4_OBJECTS with
+{
+  @UI.facet: [{ id:       'Objects',
+                purpose:  #STANDARD,
+                type:     #IDENTIFICATION_REFERENCE,
+                position: 1 }
+             ]
+
+  @UI:{ lineItem: [{ position: 10, label: 'Object Name' }],
+        identification: [{ position: 10, label: 'Object Name' }] }
+  ObjectName;
+
+  @UI:{ lineItem: [{ position: 20, label: 'Object Type' }],
+        identification: [{ position: 20, label: 'Object Type' }] }
+  ObjectType;
+
+  @UI:{ lineItem: [{ position: 30, label: 'Package' }],
+        identification: [{ position: 30, label: 'Package' }] }
+  ObjectPackage;
+
+  @UI:{ lineItem: [{ position: 40, label: 'Transport Request' }],
+        identification: [{ position: 40, label: 'Transport Request' }] }
+  TransportRequest;
+
+  @UI:{ lineItem: [{ position: 50, label: 'Object Last Changed By' }],
+        identification: [{ position: 50, label: 'Object Last Changed By' }] }
+  ObjectOwner;
+
+  @UI:{ lineItem: [{ position: 60, label: 'Object Last Changed At' }],
+        identification: [{ position: 60, label: 'Object Last Changed At' }] }
+  ObjectOwnerLastChangedAt;
+
+  @UI:{ lineItem: [{ position: 70, label: 'Local Last Changed At' }],
+        identification: [{ position: 70, label: 'Local Last Changed At' }] }
+  LocalLastChangedAt;
+}

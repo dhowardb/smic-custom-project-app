@@ -1,0 +1,59 @@
+@Metadata.layer: #CORE
+@UI: {
+  headerInfo: { typeName: 'Charm',
+                typeNamePlural: 'Charms',
+                title: { type: #STANDARD, value: 'CharmNumber' } } }
+annotate view ZC_DEMO_CHARM with
+{
+  @UI.facet: [
+              { id: 'CharmDetails',
+                purpose: #STANDARD,
+                type: #IDENTIFICATION_REFERENCE,
+                label: 'Charm Details',
+                position: 10 },
+              {
+                id: 'toTransportRequests',
+                type: #LINEITEM_REFERENCE,
+                label: 'Transport Request',
+                position: 20,
+                targetElement: '_TransportRequests'
+              }]
+
+  @UI : { lineItem: [{ position: 10, label: 'Charm Number' }],
+          identification: [{ position: 10, label: 'Charm Number' }] }
+  CharmNumber;
+
+  @UI.hidden: true
+  CharmUuid;
+
+  @UI.hidden: true
+  ProjectUuid;
+
+  @UI : { lineItem: [{ position: 20, label: 'Transport Request' }],
+          identification: [{ position: 20, label: 'Transport Request' }] }
+  TransportRequest;
+
+  @UI : { lineItem: [{ position: 30, label: 'Description' }],
+          identification: [{ position: 30, label: 'Description' }] }
+  Description;
+
+  @UI : { lineItem: [{ position: 40, label: 'Charm Created At' }],
+          identification: [{ position: 40, label: 'Charm Created At' }] }
+  DateCreated;
+
+  @UI.hidden: true
+  CreatedBy;
+
+  @UI.hidden: true
+  CreatedAt;
+
+  @UI.hidden: true
+  LastChangedBy;
+
+  @UI.hidden: true
+  LastChangedAt;
+
+  @UI.hidden: true
+  LocalLastChangedAt;
+
+}

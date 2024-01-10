@@ -1,0 +1,2 @@
+{"version":3,"file":"ListReport.controller.js","names":["sap","ui","define","ControllerExtension","ListReport","extend","override","onInit","model","this","base","getExtensionAPI","getModel"],"sources":["ListReport-dbg.controller.js"],"mappings":"AAAA,aA+
+EAA,IAAIC,GAAGC,OAAO,CAAC,uCAAwC,SAAUC,GAK/D,IAAIC,EAAaD,EAAoBE,OAAO,uDAAwD,CAClGC,SAAU,CAMRC,OAAQ,SAASA,IAEf,IAAIC,EAAQC,KAAKC,KAAKC,kBAAkBC,SAAS,cACnD,KAGJ,OAAOR,CACT"}                                                                                     

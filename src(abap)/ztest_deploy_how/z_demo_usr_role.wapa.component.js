@@ -1,0 +1,2 @@
+"use strict";sap.ui.define(["sap/fe/core/AppComponent"],function(e){"use strict";var t=e.extend("userroles.Component",{metadata:{manifest:"json"}});return t});                                                                                                
+//# sourceMappingURL=Component.js.map                                                                                                                                                                                                                          

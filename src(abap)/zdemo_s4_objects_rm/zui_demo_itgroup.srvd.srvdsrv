@@ -1,0 +1,4 @@
+@EndUserText.label: 'Demo IT Group Service Definition'
+define service ZUI_DEMO_ITGROUP {
+  expose ZC_DEMO_IT_GROUP as ITGroup;
+}

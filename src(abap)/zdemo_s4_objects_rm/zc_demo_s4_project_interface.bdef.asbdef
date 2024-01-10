@@ -1,0 +1,86 @@
+projection;
+strict;
+use draft;
+
+define behavior for ZC_DEMO_S4_PROJECT_INTERFACE alias Projects
+use etag
+{
+  use create;
+  use update;
+  use delete;
+
+  use action Edit;
+  use action Activate;
+  use action Discard;
+  use action Prepare;
+  use action Resume;
+
+  //custom actions
+  use action completeProject;
+  use action resetProject;
+
+  use action addObjectsViaTR;
+  use association _Objects { with draft; }
+  use association _Worklogs { create; with draft; }
+  use association _Charms { create; with draft; }
+  use association _Feeds { create; with draft; }
+  use association _UserAssigned { create; with draft; }
+  use association _Actions { create; with draft; }
+}
+
+define behavior for ZC_DEMO_S4_OBJECTS alias Objects
+use etag
+{
+  use delete;
+  use association _Projects { with draft; }
+}
+
+define behavior for ZC_DEMO_WORKLOG alias Worklogs
+use etag
+{
+  use update;
+  use delete;
+  use association _Projects { with draft; }
+}
+
+define behavior for ZC_DEMO_CHARM alias Charms
+use etag
+{
+  use update;
+  use delete;
+  use association _Projects { with draft; }
+  use association _TransportRequests { create; with draft; }
+}
+
+define behavior for ZC_DEMO_FEEDS_CONTENT alias Feeds
+use etag
+{
+  use update;
+  use delete;
+  use association _Projects { with draft; }
+}
+
+define behavior for ZC_DEMO_USERS_ASSIGNED alias UsersAssigned
+use etag
+{
+  use update;
+  use delete;
+  use association _Projects { with draft; }
+}
+
+define behavior for ZC_DEMO_ACTIONS alias Actions
+use etag
+{
+  use update;
+  use delete;
+  use association _Projects { with draft; }
+}
+
+define behavior for ZC_DEMO_TRANSPORT_REQUESTS alias TransportRequests
+use etag
+{
+  use update;
+  use delete;
+  use association _Projects { with draft; }
+  use association _Charms { with draft; }
+}

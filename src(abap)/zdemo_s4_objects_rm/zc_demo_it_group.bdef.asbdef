@@ -1,0 +1,16 @@
+projection;
+strict;
+use draft;
+
+define behavior for ZC_DEMO_IT_GROUP alias ITGroup
+{
+  use create;
+  use update;
+  use delete;
+
+  use action Edit;
+  use action Activate;
+  use action Discard;
+  use action Prepare;
+  use action Resume;
+}

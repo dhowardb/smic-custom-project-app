@@ -1,0 +1,46 @@
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'Reference from Demo S4 project'
+define view entity ZI_DEMO_ALV_IDA
+  as select from ZI_DEMO_S4_PROJECT_INTERFACE
+{
+  key ProjectUUID,
+      ProjectName,
+      EccTcode,
+      S4Tcode,
+      SystemSource,
+      RemediatedBy,
+      WorkstreamLead,
+      StartDate,
+      ProjectedDate,
+      CompletionDate,
+      ProjectTotalDuration,
+      ProjectDuration,
+      ProjectDurationCriticality,
+      DeveloperAssigned,
+      TestStatus,
+      StatusDescription,
+      StatusCriticality,
+      Priority,
+      PriorityDescription,
+      PriorityCriticality,
+      ProjectedWorkHours,
+      TotalWorkHours,
+      WorkLogChartValue,
+      WorkLogCriticality,
+      ProgressIndicator,
+      CreatedBy,
+      CreatedAt,
+      LastChangedBy,
+      LastChangedAt,
+      LocalLastChangedAt,
+      /* Associations */
+      _Charms,
+      _Feeds,
+      _Objects,
+      _Priority,
+      _Status,
+      _Systems,
+      _Tcodes,
+      _Users,
+      _Worklogs
+}

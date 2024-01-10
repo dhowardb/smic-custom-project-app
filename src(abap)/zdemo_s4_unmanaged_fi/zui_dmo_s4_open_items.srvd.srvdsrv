@@ -1,0 +1,4 @@
+@EndUserText.label: 'Service for Demo Open Items'
+define service ZUI_DMO_S4_OPEN_ITEMS {
+  expose ZC_DMO_OPEN_ITEMS as OpenItems;
+}

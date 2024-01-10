@@ -1,0 +1,2 @@
+{"version":3,"file":"ObjectsObjectPage.js","names":["sap","ui","define","ObjectPage","CustomPageDefinitions","actions","assertions","appId","componentId","entitySet"],"sources":["ObjectsObjectPage-dbg.js"],"mappings":"AAAAA,IAAIC,GAAGC,OAAO,CAAC,0BAA2B,S+
+AASC,GAC/C,aAEA,IAAIC,EAAwB,CACxBC,QAAS,CAAC,EACVC,WAAY,CAAC,GAGjB,OAAO,IAAIH,EACP,CACII,MAAO,kBACPC,YAAa,oBACbC,UAAW,WAEfL,EAER"}                                                                                                                             
